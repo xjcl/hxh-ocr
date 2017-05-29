@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+table, th, td {
+border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- <script src="https://raw.githubusercontent.com/krisk/Fuse/master/dist/fuse.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/2.6.1/fuse.min.js"></script>
+<script>
+
+// $(document).ready(function() {
+//     $("#demo").html("Hello, World!");
+// });
+
+
+$(document).ready(function() {
+    $('#myButton').click(function() {
+        search($('#formValueId').val());
+    });
+});
+
+
+
+
+function presentation(results) {
+
+    var list = document.createElement('ul');
+
+    for (var i = 0; i < results.length; i++) {
+        var item = document.createElement('li');
+
+        var txt = results[i]["ocr"];
+        var lines = txt.split('\n');
+
+        item.appendChild(document.createTextNode(lines[0]));
+        for (var j = 1; j < lines.length; j++) {
+            item.appendChild(document.createElement('br'));
+            item.appendChild(document.createTextNode(lines[j]));
+        }
+
+        list.appendChild(item);
+    }
+
+    return list;
+}
+
+
+function search(jansearchstring) {
+
+    // Extract the `q` query parameter
+    var queryStringRegex = /[\?&]q=([^&]+)/g;
+    // var matches = queryStringRegex.exec(window.location.search);
+    var matches = queryStringRegex.exec(jansearchstring);
+
+    matches = jansearchstring;
+
+    if(matches && matches[1]) {
+      var value = decodeURIComponent(matches[1].replace(/\+/g, '%20'));
+
+      value = matches;
+
+      // Load the posts to search
+      $.getJSON('database.json').then(function(posts) {
+        var fuse = new Fuse(posts, {keys: ['ocr'], location: 50, tokenize: true});
+        // var fuse = new Fuse(posts, {keys: ['ocr'], threshold: 1.0, distance: 1000000, tokenize: true});
+
+        var results = fuse.search(value);
+
+        $('#demo').html(results.length);
+        $('#searchResults').append(presentation(results));
+      });
+    }
+
+}
+
+
+
+// window.onload = function() {
+//     document.myform.search = get_search_action();
+// }
+
+// function get_search_action() {
+//     return search;
+// }
+
+</script>
+
+
+<!-- <form method="GET" action="/search"> -->
+<!--
+<form method="GET" action="/search" onsubmit="return search(this);">
+  <input type="text" name="q" placeholder="Search HxH memes...">
+  <button type="submit">Search</button>
+</form> -->
+
+<!-- <form>
+<input type="text" id="formValueId" name="valueId"/>
+<input type="button" onclick="search(this.form.valueId.value)"/>
+</form> -->
+
+<form>
+    <input type="text" id="formValueId" name="valueId"/>
+    <input type="button" id="myButton" />
+</form>
+
+<p id="demo"></p>
+
+<div id="searchResults"></div>
+
+$PYDATA
+
+</body>
+</html>

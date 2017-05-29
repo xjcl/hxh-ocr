@@ -1,0 +1,4 @@
+import hxh_pt0_dl_memes
+import hxh_pt1_rect_detect
+import hxh_pt2_tesseract
+import hxh_pt3_webpage
