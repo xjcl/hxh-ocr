@@ -85,7 +85,8 @@ d = d2
 
 
 with open('template.html') as t:
-    with open(web_dir + 'index.html', 'w') as f:
+    # with open(web_dir + 'index.html', 'w') as f:
+    with open('index.html', 'w') as f:
 
         for line in t:
 
