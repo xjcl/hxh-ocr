@@ -29,7 +29,8 @@ SCALE = 4
 MIN_HEIGHT = 12
 # ^ TODO base SCALE on text-height / x-height or sth
 
-
+# TODO: handle blury imgs (eg by allowing eps distance from pixel value)
+#   eg from freetextposts
 
 # algo
 # return points with
