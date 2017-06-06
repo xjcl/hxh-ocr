@@ -1,13 +1,9 @@
 import os
-from subprocess import DEVNULL, STDOUT, check_call
+from subprocess import check_call
 
 import urllib.request
 
 import argparse
-
-
-TESSERACT_OPTIONS_FILE = 'hxh-tesseract-config'
-MIN_OUTPUT_SIZE = 10
 
 
 parser = argparse.ArgumentParser(description='gay')

@@ -1,5 +1,5 @@
 import os, sys, glob
-from subprocess import DEVNULL, STDOUT, check_call
+from subprocess import check_call
 
 import numpy
 
